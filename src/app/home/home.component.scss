@@ -1,0 +1,130 @@
+h1.instructions {
+    position: absolute;
+    top:2rem;
+    left:0;
+    right:0;
+    text-align: center;
+    font-size: 1.75rem;
+    text-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+    z-index: 10;
+
+    i {
+        margin:0 0.75rem;
+    }
+}
+
+.album-list {
+    list-style: none;
+    top:0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    li {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        min-width: 350px;
+        opacity: 1;
+        transition: 0.25s ease opacity;
+
+        &:nth-child(2) {
+            opacity: 0.5;
+        }
+
+        &:nth-child(3) {
+            opacity: 0.75;
+        }
+
+        &:nth-child(5) {
+            opacity: 0.75;
+        }
+
+        &:nth-child(6) {
+            opacity: 0.5;
+        }
+    }
+
+    &.moveLeft {
+        animation: moveLeft 0.5s;
+
+        li {
+    
+            &:nth-child(3) {
+                opacity: 0.5;
+            }
+
+            &:nth-child(4) {
+                opacity: 0.75;
+            }
+    
+            &:nth-child(5) {
+                opacity: 1;
+            }
+    
+            &:nth-child(6) {
+                opacity: 0.75;
+            }
+
+            &:nth-child(7) {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &.moveRight {
+        animation: moveRight 0.5s;
+
+        li {
+            &:nth-child(1) {
+                opacity: 0.5;
+            }
+
+            &:nth-child(2) {
+                opacity: 0.75;
+            }
+    
+            &:nth-child(3) {
+                opacity: 1;
+            }
+
+            &:nth-child(4) {
+                opacity: 0.75;
+            }
+    
+            &:nth-child(5) {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+@keyframes moveLeft {
+    from {left: 0;}
+    to {left: -700px}
+}
+
+@keyframes moveRight {
+    from {right: 0;}
+    to {right: -700px}
+}
+
+.content {
+    width:100%;
+    height: 100%;
+    top:0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    z-index: 10;
+    position: absolute;
+}
+

@@ -1,0 +1,20 @@
+<h1 [class.selected-sec]="selectedAlbum" class="instructions">Pick an album using the <i class="fas fa-arrow-left gold"></i> and <i
+    class="fas fa-arrow-right gold"></i> buttons; &nbsp;press <i class="fas fa-play green"></i> to play the album!
+</h1>
+<div class="content">
+    <ul class="album-list" [class.moveRight]="movingRight" [class.moveLeft]="movingLeft">
+        <li *ngFor="let index of visibleAlbumIndices; let i = index" >
+            <app-album [album]="albums[index]" [class.highlighted]="i === midpoint" [class.selected-pri]="selectedAlbum && i === midpoint" [class.selected-sec]="selectedAlbum && i !== midpoint"></app-album>
+        </li>
+    </ul>
+
+    <app-input-buttons (onStopButton)="goToHome()" (onPlayButton)="selectAlbum(albums[midpoint])" (onLeftButton)="move(false)"
+        (onRightButton)="move(true)"></app-input-buttons>
+</div>
+
+<div [class.selected-ter]="selectedAlbum" class="content-background" [style.background-image]="'url(assets/albums/' + albums[visibleAlbumIndices[midpoint]].rootPath + '/artwork/artwork.png)'">
+
+</div>
+
+<img *ngFor="let album of albums" style="opacity: 0" src="assets/albums/{{album.rootPath}}/artwork/artwork.png" width="300" height="300"
+    alt="{{album.title}} Album Artwork"> <!--These are inserted into the DOM to preload the images into memory for faster scrolling-->

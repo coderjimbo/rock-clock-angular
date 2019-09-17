@@ -1,0 +1,7 @@
+<img src="assets/albums/{{album.rootPath}}/artwork/artwork.png"
+    alt="{{album.title}} Album Artwork">
+<div *ngIf="showDetailText">
+    <h1>{{album.title}}</h1>
+    <h2><i class="fas fa-user"></i>{{album.artist}}</h2>
+    <h3><i class="far fa-calendar"></i>{{album.releaseDate | date:'mediumDate'}}</h3>
+</div>

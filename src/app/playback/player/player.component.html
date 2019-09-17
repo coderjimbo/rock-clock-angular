@@ -1,0 +1,29 @@
+<div class="page">
+    <div class="content-area">
+        <div class="content">
+            <app-video-player [track]="album.tracks[currentTrackIndex]" [hidden]="showLyrics"
+                (videoPositionEvent)="updateCurrentTrackPosition($event)"></app-video-player>
+            <app-lyrics-display [class.hidden]="!showLyrics" [lyrics]="album.tracks[currentTrackIndex].lyrics"
+                [currentTrackPosition]="currentTrackPosition"></app-lyrics-display>
+        </div>
+        <div class="content-background"
+            [style.background-image]="'url(assets/albums/' + album.rootPath + '/artwork/artwork.png)'"></div>
+    </div>
+    <div class="album-area">
+        <app-album class="small" [album]="album" [showDetailText]="false"></app-album>
+        <app-song-player [album]="album" [track]="album.tracks[currentTrackIndex]"
+            (trackPositionEvent)="updateCurrentTrackPosition($event)"></app-song-player>
+        <h4>{{currentTrackPosition | minuteSeconds}} / {{currentTrackDuration | minuteSeconds}}</h4>
+        <div class="all-instructions">
+            <p class="instructions">Press <i class="fas fa-play green"></i> to <span *ngIf="showLyrics">hide</span><span
+                    *ngIf="!showLyrics">show</span> lyrics for this song</p>
+            <p class="instructions">Press <i class="fas fa-stop red"></i> to <span *ngIf="!stopped">stop this
+                    song</span><span *ngIf="stopped">return to the album menu</span></p>
+            <p class="instructions">Press <i class="fas fa-arrow-left gold"></i> to go to the previous track</p>
+            <p class="instructions">Press <i class="fas fa-arrow-right gold"></i> to go to the next track</p>
+        </div>
+    </div>
+</div>
+
+<app-input-buttons (onStopButton)="pressStop()" (onPlayButton)="pressPlay()" (onLeftButton)="goToPreviousTrack()"
+    (onRightButton)="goToNextTrack()"></app-input-buttons>

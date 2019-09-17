@@ -1,0 +1,116 @@
+:host {
+    &.hidden {
+        opacity: 0;
+    }
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    ol.lyrics {
+        list-style: none;
+        text-align: center;
+        font-size: 2rem;
+        line-height: 4rem;
+    
+        li {
+            transition: all 0.25s ease;
+            text-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+            &.current {
+                color: goldenrod;
+            }
+        }
+    
+        &.five-children {
+            li {
+                &:nth-child(1) {
+                    opacity: 0.25;
+                }
+                &:nth-child(2) {
+                    opacity: 0.5;
+                }
+                &:nth-child(3) {
+                    opacity: 1;
+                }
+                &:nth-child(4) {
+                    opacity: 0.5;
+                }
+                &:nth-child(5) {
+                    opacity: 0.25;
+                }
+            }
+        }
+    
+        &.index-3 {
+            li {
+                &:nth-child(1) {
+                    opacity: 0;
+                    display: none;
+                }
+                &:nth-child(2) {
+                    opacity: 0.25;
+                }
+                &:nth-child(3) {
+                    opacity: 0.5;
+                }
+                &:nth-child(4) {
+                    opacity: 1;
+                }
+                &:nth-child(5) {
+                    opacity: 0.5;
+                }
+            }
+        }
+    
+        &.index-4 {
+            li {
+                &:nth-child(1) {
+                    opacity: 0;
+                    display: none;
+                }
+                &:nth-child(2) {
+                    opacity: 0;
+                    display: none;
+                }
+                &:nth-child(3) {
+                    opacity: 0.25;
+                }
+                &:nth-child(4) {
+                    opacity: 0.5;
+                }
+                &:nth-child(5) {
+                    opacity: 1;
+                }
+            }
+        }
+    
+        &.three-children {
+            li {
+                &:nth-child(1) {
+                    opacity: 1;
+                }
+                &:nth-child(2) {
+                    opacity: 0.5;
+                }
+                &:nth-child(3) {
+                    opacity: 0.25;
+                }
+            }
+            
+        }
+    
+        &.four-children {
+            li {
+                &:nth-child(1) {
+                    opacity: 0.5;
+                }
+                &:nth-child(2) {
+                    opacity: 1;
+                }
+                &:nth-child(3) {
+                    opacity: 0.5;
+                }
+                &:nth-child(4) {
+                    opacity: 0.25;
+                }
+            }
+        }
+    }
+}

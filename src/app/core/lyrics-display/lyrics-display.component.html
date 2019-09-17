@@ -1,0 +1,4 @@
+<ol class="lyrics" [class.three-children]="currentLyrics.length == 3" [class.four-children]="currentLyrics.length == 4"
+[class.five-children]="currentLyrics.length == 5" [class.index-3]="currentLyricsIndex === 3" [class.index-4]="currentLyricsIndex >= 4"> 
+    <li *ngFor="let lyric of currentLyrics" [class.current]="isCurrentLyric(lyric)">{{lyric.line}}</li>
+</ol>
