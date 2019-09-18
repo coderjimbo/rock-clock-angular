@@ -13,7 +13,12 @@
         <app-album class="small" [album]="album" [showDetailText]="false"></app-album>
         <app-song-player [album]="album" [track]="album.tracks[currentTrackIndex]"
             (trackPositionEvent)="updateCurrentTrackPosition($event)"></app-song-player>
-        <h4>{{currentTrackPosition | minuteSeconds}} / {{currentTrackDuration | minuteSeconds}}</h4>
+        <div class="progress-bar">
+            <div class="fill" [style.width.%]="getWidthPercentage()"></div>
+        </div>
+        <h4 class="left">{{currentTrackPosition | minuteSeconds}} </h4>
+        <h4 class="right">{{currentTrackDuration | minuteSeconds}} </h4>
+        <div class="clear"></div>
         <div class="all-instructions">
             <p class="instructions">Press <i class="fas fa-play green"></i> to <span *ngIf="showLyrics">hide</span><span
                     *ngIf="!showLyrics">show</span> lyrics for this song</p>

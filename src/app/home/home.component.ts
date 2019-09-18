@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Album } from '../core/models/album';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GpioWebsocketsService } from '../core/services/gpio-websockets.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    clearInterval(this.inter);
+  }
   albums: Album[] = [];
   visibleAlbumIndices: number[] = [];
   selectedIndex = 0;
@@ -14,25 +19,39 @@ export class HomeComponent implements OnInit {
   movingRight: boolean = false;
   midpoint: number;
   selectedAlbum: boolean = false;
+  inter: any;
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute, private gpioService: GpioWebsocketsService) { }
 
   ngOnInit() {
     this.createAlbums();
-    let midPoint = 0;
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -3));
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -2));
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -1));
-    this.visibleAlbumIndices.push(midPoint);
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 1));
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 2));
-    this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 3));
-    this.midpoint = Math.floor(this.visibleAlbumIndices.length / 2);
-    console.log(this.visibleAlbumIndices);
+    this.route.paramMap.subscribe(params => {
+      this.visibleAlbumIndices = [];
+      let midPoint = parseInt(params.get("id"));
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -3));
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -2));
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, -1));
+      this.visibleAlbumIndices.push(midPoint);
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 1));
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 2));
+      this.visibleAlbumIndices.push(this.getAlbumIndex(midPoint, 3));
+      this.midpoint = Math.floor(this.visibleAlbumIndices.length / 2);
+    });
+    
+    //this.gpioService.setLedPinAndValue(13, 10);
+    //this.gpioService.setLedPulsePinArrayValueSpeed([13, 26], 32, 50);
   }
 
   selectAlbum(album: Album) {
     this.selectedAlbum = true;
+
+    setTimeout(() => {
+      this.goToAlbum();
+    }, 600);
+  }
+
+  getSelectedAlbumIndex(): number {
+    return this.visibleAlbumIndices[this.midpoint];
   }
 
   getAlbumIndex(index: number, distance: number): number {
@@ -140,6 +159,15 @@ export class HomeComponent implements OnInit {
     } else {
       this.selectedIndex -= 1;
     }
+  }
+
+  goToAlbum() {
+    let album = this.albums[this.getSelectedAlbumIndex()];
+    this.router.navigateByUrl("/play/" + this.getSelectedAlbumIndex(), {state: album});
+  }
+
+  goToWelcome() {
+    this.router.navigateByUrl("/welcome");
   }
 
 }

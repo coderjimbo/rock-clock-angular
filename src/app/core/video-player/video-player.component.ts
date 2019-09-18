@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Track } from '../models/track';
 import { MediaPosition } from '../models/media-position';
+import { PlaybackService } from '../services/playback.service';
 
 @Component({
   selector: 'app-video-player',
@@ -17,10 +18,14 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
   video: HTMLVideoElement;
   videoInterval: any;
 
-  constructor() { }
+  constructor(private playbackService: PlaybackService) { }
 
   ngOnInit() {
-
+    this.playbackService.playingEvent.subscribe(event => {
+      if(this.track.hasVideo) {
+        this.controlVideo(event);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -41,6 +46,12 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
     
     if(this.track.hasVideo) {
       this.video.src = this.track.videoLocation;
+      this.controlVideo(true);
+    }
+  }
+
+  controlVideo(nowPlaying: boolean) {
+    if(nowPlaying) {
       this.video.play();
       this.mediaPosition = new MediaPosition();
       this.videoInterval = setInterval(() => {
@@ -53,8 +64,12 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
           this.endVideo();
         }
       }, 500);
+    } else {
+      this.video.pause();
+      clearInterval(this.videoInterval);
     }
   }
+  
 
   endVideo() {
     this.video.pause();

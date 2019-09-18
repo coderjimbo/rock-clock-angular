@@ -3,6 +3,8 @@ import { Album } from 'src/app/core/models/album';
 import { Track } from 'src/app/core/models/track';
 import { Lyric } from 'src/app/core/models/lyric';
 import { MediaPosition } from 'src/app/core/models/media-position';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PlaybackService } from 'src/app/core/services/playback.service';
 
 @Component({
   selector: 'app-player',
@@ -10,16 +12,21 @@ import { MediaPosition } from 'src/app/core/models/media-position';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
+  currentAlbumIndex = "0";
   currentTrackIndex = 0;
   currentTrackPosition: number = 0;
   currentTrackDuration: number = 0;
   showLyrics: boolean = true;
   stopped: boolean = false;
   album: Album = new Album("Information Society", "Information Society");
-    
-  constructor() { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private playbackService: PlaybackService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.currentAlbumIndex = params.get("id");
+    });
+
     this.album.rootPath = "album_9_infosoc";
     this.album.releaseDate = new Date("06/21/1988");
     
@@ -70,7 +77,6 @@ export class PlayerComponent implements OnInit {
       // Go to next track
       this.currentTrackIndex++;
     } else {
-      console.log("next");
       this.goHome();
     }
   }
@@ -83,13 +89,13 @@ export class PlayerComponent implements OnInit {
   }
 
   goHome() {
-    alert("Home");
+    this.router.navigateByUrl("/home/" + this.currentAlbumIndex);
   }
 
   pressPlay() {
     if(this.stopped) {
       this.stopped = false;
-      // play
+      this.playbackService.setPlayback(true);
     } else {
       this.showLyrics = !this.showLyrics;
     }
@@ -100,7 +106,12 @@ export class PlayerComponent implements OnInit {
       this.goHome()
     } else {
       this.stopped = true;
+      this.playbackService.setPlayback(false);
     }
+  }
+
+  getWidthPercentage(): number {
+    return (Math.round(this.currentTrackPosition) / Math.round(this.currentTrackDuration)) * 100;
   }
 
 }
