@@ -11,9 +11,6 @@ video {
     transition: opacity 0.5s ease;
 
     &.hidden {
-        opacity: 0.15;
-    }
-    &.no-display {
-        display: none;
+        opacity: 0;
     }
 }

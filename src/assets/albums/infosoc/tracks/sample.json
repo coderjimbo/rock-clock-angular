@@ -1,0 +1,40 @@
+{
+    "lyrics": 
+    [
+        {
+            "line": "It's worked so far but we're not out yet",
+            "startTime": 0,
+            "endTime": 3
+        },
+        {
+            "line": "I want to know",
+            "startTime": 3,
+            "endTime": 5
+        },
+        {
+            "line": "What you're thinking",
+            "startTime": 5,
+            "endTime": 7.5
+        },
+        {
+            "line": "There are some things you can't hide",
+            "startTime": 7.5,
+            "endTime": 11
+        },
+        {
+            "line": "I want to know",
+            "startTime": 11,
+            "endTime": 13
+        },
+        {
+            "line": "What you're feeling",
+            "startTime": 13,
+            "endTime": 16
+        },
+        {
+            "line": "Tell me what's on your mind",
+            "startTime": 16,
+            "endTime": 20
+        }
+    ]
+}

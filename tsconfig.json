@@ -17,7 +17,12 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    // When using above interop will get missing default export error from type check since
+    // modules use "export =" instead of "export default", enable this to ignore errors.
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

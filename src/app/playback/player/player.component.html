@@ -1,17 +1,17 @@
 <div class="page">
     <div class="content-area">
         <div class="content">
-            <app-video-player [track]="album.tracks[currentTrackIndex]" [hidden]="showLyrics"
+            <app-video-player [album]="album" [track]="tracks[currentTrackIndex]" [trackIndex]="currentTrackIndex"
                 (videoPositionEvent)="updateCurrentTrackPosition($event)"></app-video-player>
-            <app-lyrics-display [class.hidden]="!showLyrics" [lyrics]="album.tracks[currentTrackIndex].lyrics"
+            <app-lyrics-display [class.hidden]="!showLyrics" [album]="album" [trackIndex]="currentTrackIndex"
                 [currentTrackPosition]="currentTrackPosition"></app-lyrics-display>
         </div>
         <div class="content-background"
             [style.background-image]="'url(assets/albums/' + album.rootPath + '/artwork/artwork.png)'"></div>
     </div>
-    <div class="album-area">
+    <div class="album-area" [style.background-color]="getMutedBackgroundColor()">
         <app-album class="small" [album]="album" [showDetailText]="false"></app-album>
-        <app-song-player [album]="album" [track]="album.tracks[currentTrackIndex]"
+        <app-song-player [album]="album" [track]="tracks[currentTrackIndex]" [trackIndex]="currentTrackIndex"
             (trackPositionEvent)="updateCurrentTrackPosition($event)"></app-song-player>
         <div class="progress-bar">
             <div class="fill" [style.width.%]="getWidthPercentage()"></div>

@@ -1,0 +1,45 @@
+{
+    "tracks": 
+    [
+        {
+            "title": "Speak to Me",
+            "hasVideo": false
+        },
+        {
+            "title": "Breathe (In The Air)",
+            "hasVideo": false
+        },
+        {
+            "title": "On the Run",
+            "hasVideo": false
+        },
+        {
+            "title": "Time / Breathe (Reprise)",
+            "hasVideo": false
+        },
+        {
+            "title": "The Great Gig in the Sky",
+            "hasVideo": false
+        },
+        {
+            "title": "Money",
+            "hasVideo": true
+        },
+        {
+            "title": "Us and Them",
+            "hasVideo": false
+        },
+        {
+            "title": "Any Colour You Like",
+            "hasVideo": false
+        },
+        {
+            "title": "Brain Damage",
+            "hasVideo": false
+        },
+        {
+            "title": "Eclipse",
+            "hasVideo": false
+        }
+    ]
+}

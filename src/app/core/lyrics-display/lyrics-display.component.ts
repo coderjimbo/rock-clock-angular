@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Lyric } from '../models/lyric';
+import { Album } from '../models/album';
 
 @Component({
   selector: 'app-lyrics-display',
@@ -7,8 +8,12 @@ import { Lyric } from '../models/lyric';
   styleUrls: ['./lyrics-display.component.scss']
 })
 export class LyricsDisplayComponent implements OnInit, OnChanges {
-  @Input() lyrics: Lyric[] = [];
+  @Input() album: Album;
+  @Input() trackIndex: number;
   @Input() currentTrackPosition?: number = 0;
+
+  lyrics: Lyric[];
+  hasLyrics: boolean = false;
 
   currentLyrics: Lyric[];
   currentLyricsIndex: number = 0;
@@ -22,7 +27,7 @@ export class LyricsDisplayComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.lyrics != null) {
+    if(changes.trackIndex != null) {
       this.lyricsChanged();
     } else if(changes.currentTrackPosition != null) {
       this.trackPositionChanged();
@@ -48,16 +53,29 @@ export class LyricsDisplayComponent implements OnInit, OnChanges {
   }
 
   private lyricsChanged() {
-    this.currentLyrics = [];
-    this.currentLyricsIndex = 0;
-    if (this.lyrics.length >= 3) {
-      for (let i = 0; i < 3; i++) {
-        this.insertIntoCurrentLyricsFromLyricsArray(i);
-      }
+    var data;
+    this.hasLyrics = false;
+    try {
+      data = require('../../../assets/albums/' + this.album.rootPath + '/tracks/' + this.trackIndex + '.json');
+      this.hasLyrics = true;
     }
-    else {
-      for (let i = 0; i < this.lyrics.length; i++) {
-        this.insertIntoCurrentLyricsFromLyricsArray(i);
+    catch(e) {
+      console.log("This track does not have lyrics JSON data associated with it")
+    }
+    if(this.hasLyrics) {
+      this.lyrics = data.lyrics as Lyric[];
+
+      this.currentLyrics = [];
+      this.currentLyricsIndex = 0;
+      if (this.lyrics.length >= 3) {
+        for (let i = 0; i < 3; i++) {
+          this.insertIntoCurrentLyricsFromLyricsArray(i);
+        }
+      }
+      else {
+        for (let i = 0; i < this.lyrics.length; i++) {
+          this.insertIntoCurrentLyricsFromLyricsArray(i);
+        }
       }
     }
   }

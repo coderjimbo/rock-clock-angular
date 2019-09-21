@@ -1,0 +1,45 @@
+{
+    "tracks": 
+    [
+        {
+            "title": "What's on Your Mind (Pure Energy)",
+            "hasVideo": true
+        },
+        {
+            "title": "Tomorrow",
+            "hasVideo": false
+        },
+        {
+            "title": "Lay All Your Love on Me",
+            "hasVideo": false
+        },
+        {
+            "title": "Repetition",
+            "hasVideo": true
+        },
+        {
+            "title": "Walking Away",
+            "hasVideo": true
+        },
+        {
+            "title": "Over the Sea",
+            "hasVideo": false
+        },
+        {
+            "title": "Attitude",
+            "hasVideo": false
+        },
+        {
+            "title": "Something in the Air",
+            "hasVideo": false
+        },
+        {
+            "title": "Running",
+            "hasVideo": false
+        },
+        {
+            "title": "Make It Funky",
+            "hasVideo": false
+        }
+    ]
+}

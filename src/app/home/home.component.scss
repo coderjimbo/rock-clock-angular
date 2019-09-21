@@ -6,7 +6,7 @@ h1.instructions {
     text-align: center;
     font-size: 1.75rem;
     text-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-    z-index: 10;
+    z-index: 11;
 
     i {
         margin:0 0.75rem;
@@ -34,7 +34,7 @@ h1.instructions {
         align-items: center;
         min-width: 350px;
         opacity: 1;
-        transition: 0.25s ease opacity;
+        transition: 0.25s ease all;
 
         &:nth-child(2) {
             opacity: 0.5;
@@ -42,6 +42,10 @@ h1.instructions {
 
         &:nth-child(3) {
             opacity: 0.75;
+        }
+
+        &:nth-child(4) {
+            transform: scale(1.1);
         }
 
         &:nth-child(5) {
@@ -64,13 +68,16 @@ h1.instructions {
 
             &:nth-child(4) {
                 opacity: 0.75;
+                transform: scale(1);
             }
     
             &:nth-child(5) {
                 opacity: 1;
+                transform: scale(1.1);
             }
     
             &:nth-child(6) {
+                transform: scale(1);
                 opacity: 0.75;
             }
 
@@ -90,14 +97,17 @@ h1.instructions {
 
             &:nth-child(2) {
                 opacity: 0.75;
+                transform: scale(1);
             }
     
             &:nth-child(3) {
                 opacity: 1;
+                transform: scale(1.1);
             }
 
             &:nth-child(4) {
                 opacity: 0.75;
+                transform: scale(1);
             }
     
             &:nth-child(5) {
@@ -126,5 +136,6 @@ h1.instructions {
     right: 0;
     z-index: 10;
     position: absolute;
+    transition: 0.25s ease background-color;
 }
 

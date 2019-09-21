@@ -5,6 +5,9 @@ import { Lyric } from 'src/app/core/models/lyric';
 import { MediaPosition } from 'src/app/core/models/media-position';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlaybackService } from 'src/app/core/services/playback.service';
+import Vibrant from 'node-vibrant'
+import { Palette } from 'node-vibrant/lib/color';
+import AlbumJson from '../../../assets/albums/albums.json';
 
 @Component({
   selector: 'app-player',
@@ -13,52 +16,41 @@ import { PlaybackService } from 'src/app/core/services/playback.service';
 })
 export class PlayerComponent implements OnInit {
   currentAlbumIndex = "0";
+  currentAlbumIndexNumber = -1;
   currentTrackIndex = 0;
   currentTrackPosition: number = 0;
   currentTrackDuration: number = 0;
   showLyrics: boolean = true;
   stopped: boolean = false;
-  album: Album = new Album("Information Society", "Information Society");
+  album: Album;
+  tracks: Track[];
+  resultPalette: Palette;
+
 
   constructor(private router: Router, private route: ActivatedRoute, private playbackService: PlaybackService) { }
 
   ngOnInit() {
+    let albums = AlbumJson.albums as Album[];
+    
     this.route.paramMap.subscribe(params => {
       this.currentAlbumIndex = params.get("id");
+      this.currentAlbumIndexNumber = parseInt(this.currentAlbumIndex);
+      this.album = albums[this.currentAlbumIndexNumber];
+
+      var data = require('../../../assets/albums/' + this.album.rootPath + '/tracks/tracks.json');
+      this.tracks = data.tracks as Track[];
     });
 
-    this.album.rootPath = "album_9_infosoc";
-    this.album.releaseDate = new Date("06/21/1988");
+    Vibrant.from('assets/albums/' + this.album.rootPath + '/artwork/artwork.png').getPalette((err, palette) => {
+      this.resultPalette = palette;
+    });
     
-    let testTrack = new Track();
-    testTrack.title = "What's On Your Mind (Pure Energy)";
-    testTrack.audioLocation = "assets/albums/" + this.album.rootPath + "/tracks/0.mp3";
-    testTrack.hasVideo = true;
-    testTrack.videoLocation = "assets/albums/" + this.album.rootPath + "/videos/0.mp4";
+  }
 
-    let testTrack1 = new Track();
-    testTrack1.title = "Tomorrow";
-    testTrack1.audioLocation = "assets/albums/" + this.album.rootPath + "/tracks/1.mp3";
-    testTrack1.hasVideo = false;
-
-    let lyric1 = new Lyric("It's worked so far but we're not out yet", 0, 3);
-    let lyric2 = new Lyric("I want to know", 3, 5);
-    let lyric3 = new Lyric("What you're thinking", 5, 7.5);
-    let lyric4 = new Lyric("There are some things you can't hide", 7.5, 11);
-    let lyric5 = new Lyric("I want to know", 11, 13);
-    let lyric6 = new Lyric("What you're feeling", 13, 16);
-    let lyric7 = new Lyric("Tell me what's on your mind", 16, 20);
-
-    testTrack.lyrics.push(lyric1);
-    testTrack.lyrics.push(lyric2);
-    testTrack.lyrics.push(lyric3);
-    testTrack.lyrics.push(lyric4);
-    testTrack.lyrics.push(lyric5);
-    testTrack.lyrics.push(lyric6);
-    testTrack.lyrics.push(lyric7);
-
-    this.album.tracks.push(testTrack);
-    this.album.tracks.push(testTrack1);
+  getMutedBackgroundColor(): string {
+    if(this.resultPalette != null && this.resultPalette.DarkMuted != null) {
+      return this.resultPalette.DarkMuted.getHex()
+    }
   }
 
   updateCurrentTrackPosition(event: MediaPosition) {
@@ -73,7 +65,7 @@ export class PlayerComponent implements OnInit {
   }
 
   goToNextTrack() {
-    if(this.album.tracks.length - 1 > this.currentTrackIndex) {
+    if(this.tracks.length - 1 > this.currentTrackIndex) {
       // Go to next track
       this.currentTrackIndex++;
     } else {

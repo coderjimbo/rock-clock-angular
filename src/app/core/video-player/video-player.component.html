@@ -1,1 +1,1 @@
-<video [class.no-display]="!track.hasVideo" [class.hidden]="hidden" #videoPlayer></video>
+<video [class.hidden]="hidden || !track.hasVideo" #videoPlayer></video>

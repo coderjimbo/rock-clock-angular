@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
 import { Track } from '../models/track';
 import { MediaPosition } from '../models/media-position';
 import { PlaybackService } from '../services/playback.service';
+import { Album } from '../models/album';
 
 @Component({
   selector: 'app-video-player',
@@ -10,6 +11,8 @@ import { PlaybackService } from '../services/playback.service';
 })
 export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() track: Track;
+  @Input() album: Album;
+  @Input() trackIndex: number;
   @Input() hidden: boolean = false;
   @Output() videoPositionEvent: EventEmitter<MediaPosition> = new EventEmitter();
   mediaPosition = new MediaPosition();
@@ -45,7 +48,8 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
     }
     
     if(this.track.hasVideo) {
-      this.video.src = this.track.videoLocation;
+      let path = "assets/albums/" + this.album.rootPath + "/tracks/" + this.trackIndex + ".mp4";
+      this.video.src = path;
       this.controlVideo(true);
     }
   }
@@ -59,7 +63,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
         this.mediaPosition.currentPosition = this.video.currentTime;
         this.videoPositionEvent.emit(this.mediaPosition);
         if(this.video.currentTime >= (this.video.duration - 1.0)) {
-          console.log("done");
           this.videoPositionEvent.emit(null);
           this.endVideo();
         }

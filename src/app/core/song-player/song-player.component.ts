@@ -14,6 +14,7 @@ export class SongPlayerComponent implements OnInit, OnChanges {
   
   @Input() album: Album;
   @Input() track: Track;
+  @Input() trackIndex: number;
   @Output() trackPositionEvent: EventEmitter<MediaPosition> = new EventEmitter();
   mediaPosition = new MediaPosition();
 
@@ -40,7 +41,6 @@ export class SongPlayerComponent implements OnInit, OnChanges {
         this.trackPositionEvent.emit(this.mediaPosition);
   
         if(this.audio.currentTime >= (this.audio.duration - 0.5)) {
-          console.log("Done");
           this.trackPositionEvent.emit(null);
           clearInterval(this.songInterval);
         }
@@ -59,7 +59,8 @@ export class SongPlayerComponent implements OnInit, OnChanges {
     }
     if(!this.track.hasVideo) {
       this.audio = new Audio();
-      this.audio.src = this.track.audioLocation;
+      let path = "assets/albums/" + this.album.rootPath + "/tracks/" + this.trackIndex + ".mp3";
+      this.audio.src = path;
       this.audio.load();
       this.controlAudioTrack(true);
     }

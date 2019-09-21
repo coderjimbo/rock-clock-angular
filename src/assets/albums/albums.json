@@ -1,0 +1,77 @@
+{
+    "albums": 
+    [
+        {
+            "title": "The Dark Side of the Moon",
+            "artist": "Pink Floyd",
+            "releaseDate": "03/01/1973",
+            "rootPath": "darkside"
+        },
+        {
+            "title": "The Stranger",
+            "artist": "Billy Joel",
+            "releaseDate": "09/29/1977",
+            "rootPath": "stranger"
+        },
+        {
+            "title": "Rio",
+            "artist": "Pink Floyd",
+            "releaseDate": "05/10/1982",
+            "rootPath": "rio"
+        },
+        {
+            "title": "Seven and the Ragged Tiger",
+            "artist": "Duran Duran",
+            "releaseDate": "11/21/1983",
+            "rootPath": "sevenragged"
+        },
+        {
+            "title": "Human's Lib",
+            "artist": "Howard Jones",
+            "releaseDate": "03/05/1984",
+            "rootPath": "humanslib"
+        },
+        {
+            "title": "Songs from the Big Chair",
+            "artist": "Tears for Fears",
+            "releaseDate": "02/25/1985",
+            "rootPath": "bigchair"
+        },
+        {
+            "title": "Dream Into Action",
+            "artist": "Howard Jones",
+            "releaseDate": "03/11/1985",
+            "rootPath": "dream"
+        },
+        {
+            "title": "Information Society",
+            "artist": "Information Society",
+            "releaseDate": "06/21/1988",
+            "rootPath": "infosoc"
+        },
+        {
+            "title": "The Miracle",
+            "artist": "Queen",
+            "releaseDate": "05/22/1989",
+            "rootPath": "miracle"
+        },
+        {
+            "title": "The Division Bell",
+            "artist": "Pink Floyd",
+            "releaseDate": "03/28/1994",
+            "rootPath": "divisionbell"
+        },
+        {
+            "title": "In a Tidal Wave of Mystery",
+            "artist": "Capital Cities",
+            "releaseDate": "06/04/2013",
+            "rootPath": "tidalwave"
+        },
+        {
+            "title": "Bad Blood",
+            "artist": "Bastille",
+            "releaseDate": "09/03/2013",
+            "rootPath": "badblood"
+        }
+    ]
+}
