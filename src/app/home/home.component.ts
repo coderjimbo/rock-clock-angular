@@ -39,8 +39,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.midpoint = Math.floor(this.visibleAlbumIndices.length / 2);
     });
     
-    //this.gpioService.setLedPinAndValue(13, 10);
-    //this.gpioService.setLedPulsePinArrayValueSpeed([13, 26], 32, 50);
+    this.gpioService.setLedPinValue(13, 15);
+    //this.gpioService.setLedPulsePinArrayValueSpeed([13], 32, 50);
   }
 
   selectAlbum(album: Album) {

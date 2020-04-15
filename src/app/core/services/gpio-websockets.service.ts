@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { GpioRequest } from '../models/gpio-request';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GpioWebsocketsService {
   constructor(private socket: Socket) { }
+
+  getSocketButtonOutput(): Observable<string> {
+    return this.socket.fromEvent("button");
+  }
 
   setLedPinValue(pin: number, value: number) {
     this.socket.emit("setOutput", new GpioRequest(pin, value));

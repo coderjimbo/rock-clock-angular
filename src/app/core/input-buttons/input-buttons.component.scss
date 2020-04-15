@@ -5,6 +5,7 @@
     right: 0;
     height: 3rem;
     opacity: 0.15;
+    visibility: hidden; // Remove this line to show debug buttons
     z-index: 9999;
     button {
         height: 3rem;

@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { GpioWebsocketsService } from '../services/gpio-websockets.service';
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
 
 @Component({
   selector: 'app-input-buttons',
@@ -13,9 +19,27 @@ export class InputButtonsComponent implements OnInit {
   @Output() onLeftButton: EventEmitter<boolean> = new EventEmitter();
   @Output() onRightButton: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  constructor(private socketsService: GpioWebsocketsService) { }
 
   ngOnInit() {
+    this.socketsService.getSocketButtonOutput().subscribe(input => {
+      switch(input.toLowerCase()) {
+        case "left":
+          this.pressLeftButton();
+          break;
+        case "right":
+          this.pressRightButton();
+          break;
+        case "stop":
+          this.pressStopButton();
+          break;
+        case "play":
+          this.pressPlayButton();
+          break;
+        default:
+        break;
+      }
+    });
   }
 
   pressStopButton() {
