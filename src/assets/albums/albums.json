@@ -8,6 +8,12 @@
             "rootPath": "darkside"
         },
         {
+            "title": "Boston",
+            "artist": "Boston",
+            "releaseDate": "08/25/1976",
+            "rootPath": "boston"
+        },
+        {
             "title": "The Stranger",
             "artist": "Billy Joel",
             "releaseDate": "09/29/1977",
@@ -44,28 +50,22 @@
             "rootPath": "dream"
         },
         {
+            "title": "So Red the Rose",
+            "artist": "Arcadia",
+            "releaseDate": "11/18/1985",
+            "rootPath": "redrose"
+        },
+        {
             "title": "Information Society",
             "artist": "Information Society",
             "releaseDate": "06/21/1988",
             "rootPath": "infosoc"
         },
         {
-            "title": "The Miracle",
-            "artist": "Queen",
-            "releaseDate": "05/22/1989",
-            "rootPath": "miracle"
-        },
-        {
             "title": "The Division Bell",
             "artist": "Pink Floyd",
             "releaseDate": "03/28/1994",
             "rootPath": "divisionbell"
-        },
-        {
-            "title": "In a Tidal Wave of Mystery",
-            "artist": "Capital Cities",
-            "releaseDate": "06/04/2013",
-            "rootPath": "tidalwave"
         },
         {
             "title": "Bad Blood",
