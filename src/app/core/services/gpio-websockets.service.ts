@@ -17,12 +17,18 @@ export class GpioWebsocketsService {
     this.socket.emit("setOutput", new GpioRequest(pin, value));
   }
 
-  setLedPinArrayValue(pins: number[], value: number) {
+  setLedPinArrayValue(pins: number[], value: number, secondLayer: boolean) {
     let requests = [];
     pins.forEach(pin => {
       requests.push(new GpioRequest(pin, value));
     });
-    this.socket.emit("setOutputArray", requests);
+
+    if(secondLayer) {
+      this.socket.emit("setOutputArraySecondLayer", requests);
+    } else {
+      this.socket.emit("setOutputArray", requests);
+    }
+    
   }
 
   setLedPulsePinValueSpeed(pin: number, value: number, speed: number) {
@@ -39,5 +45,13 @@ export class GpioWebsocketsService {
       requests.push(request);
     });
     this.socket.emit("setPulseArray", requests);
+  }
+  
+  clearAllLeds(secondLayer: boolean) {
+    if(secondLayer) {
+      this.socket.emit("clearAllOutputsSecondLayer", null);
+    } else {
+      this.socket.emit("clearAllOutputs", null);
+    }
   }
 }

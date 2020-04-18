@@ -3,6 +3,7 @@ import { Album } from '../core/models/album';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GpioWebsocketsService } from '../core/services/gpio-websockets.service';
 import AlbumJson from '../../assets/albums/albums.json';
+import { LEDPinValues } from '../core/led-pin-values'
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.midpoint = Math.floor(this.visibleAlbumIndices.length / 2);
     });
     
-    this.gpioService.setLedPinValue(13, 15);
+    this.setAlbumLed();
+    this.setButtonLEDs();
     //this.gpioService.setLedPulsePinArrayValueSpeed([13], 32, 50);
   }
 
@@ -49,6 +51,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.goToAlbum();
     }, 600);
+  }
+
+  setAlbumLed() {
+    this.gpioService.clearAllLeds(false);
+    this.gpioService.setLedPinValue(this.getPinIndex(this.getSelectedAlbumIndex()), 192);
+  }
+
+  setButtonLEDs() {
+    let buttonPinsToLight: number[] = [];
+    buttonPinsToLight.push(LEDPinValues.PLAY);
+    buttonPinsToLight.push(LEDPinValues.STOP);
+    buttonPinsToLight.push(LEDPinValues.LEFT);
+    buttonPinsToLight.push(LEDPinValues.RIGHT);
+
+    this.gpioService.setLedPinArrayValue(buttonPinsToLight, 255, true);
   }
 
   getSelectedAlbumIndex(): number {
@@ -78,6 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.movingRight = true;
         this.midpoint -=1;
       }
+      this.setAlbumLed();
       setTimeout(() => {
         if(left) {
           // Right button clicked
@@ -91,6 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.movingRight = false;
           this.midpoint += 1;
         }
+        
       }, 450);
     }
   }
@@ -118,6 +137,37 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   goToWelcome() {
     this.router.navigateByUrl("/welcome");
+  }
+
+  getPinIndex(albumIndex: number): number {
+    switch(albumIndex) {
+      case 0:
+        return LEDPinValues.TWELVE;
+      case 1:
+        return LEDPinValues.ONE;
+      case 2:
+        return LEDPinValues.TWO;
+      case 3:
+        return LEDPinValues.THREE;
+      case 4:
+        return LEDPinValues.FOUR;
+      case 5:
+        return LEDPinValues.FIVE;
+      case 6:
+        return LEDPinValues.SIX;
+      case 7:
+        return LEDPinValues.SEVEN;
+      case 8:
+        return LEDPinValues.EIGHT;
+      case 9:
+        return LEDPinValues.NINE;
+      case 10:
+        return LEDPinValues.TEN;
+      case 11:
+        return LEDPinValues.ELEVEN;
+      default:
+        return -1;
+    }
   }
 
 }
