@@ -2,7 +2,7 @@ h1 {
     font-family: "introrustg-base2line";
     color: #fff;
     display: inline-block;
-    font-size: 15rem;
+    font-size: 10rem;
     margin:0;
     text-align: center;
 }
@@ -26,6 +26,8 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url('../../assets/wallpaper.jpg');
+    background-position: center center;
 }
 
 .icons {
