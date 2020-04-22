@@ -3,7 +3,7 @@
     [
         {
             "title": "Election Day",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Keep Me in the Dark",
@@ -11,7 +11,7 @@
         },
         {
             "title": "Goodbye Is Forever",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "The Flame",
@@ -19,7 +19,7 @@
         },
         {
             "title": "Missing",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Rose Arcana",
@@ -27,7 +27,7 @@
         },
         {
             "title": "The Promise",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "El Diablo",

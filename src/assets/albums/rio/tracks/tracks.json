@@ -3,7 +3,7 @@
     [
         {
             "title": "Rio",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "My Own Way",
@@ -11,11 +11,11 @@
         },
         {
             "title": "Lonely in Your Nightmare",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Hungry Like the Wolf",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Hold Back the Rain",
@@ -31,11 +31,11 @@
         },
         {
             "title": "Save a Prayer",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "The Chauffeur",
-            "hasVideo": false
+            "hasVideo": true
         }
     ]
 }

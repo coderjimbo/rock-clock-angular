@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Album } from '../models/album';
 import { Track } from '../models/track';
 import { MediaPosition } from '../models/media-position';
@@ -9,7 +9,7 @@ import { PlaybackService } from '../services/playback.service';
   templateUrl: './song-player.component.html',
   styleUrls: ['./song-player.component.scss']
 })
-export class SongPlayerComponent implements OnInit, OnChanges {
+export class SongPlayerComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('audioOption', {static: true}) audioPlayerRef: ElementRef;
   
   @Input() album: Album;
@@ -23,6 +23,12 @@ export class SongPlayerComponent implements OnInit, OnChanges {
   songInterval: any;
 
   constructor(private playbackService: PlaybackService) { }
+  ngOnDestroy(): void {
+    this.audio = new Audio();
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.audio.load();
+  }
 
   ngOnInit() {
     this.playbackService.playingEvent.subscribe(event => {

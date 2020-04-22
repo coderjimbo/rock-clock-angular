@@ -3,7 +3,7 @@
     [
         {
             "title": "Things Can Only Get Better",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Life in One Day",
@@ -19,7 +19,7 @@
         },
         {
             "title": "Like to Get to Know You Well",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Assault and Battery",
@@ -27,11 +27,11 @@
         },
         {
             "title": "Look Mama",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Bounce Right Back",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Elegy",

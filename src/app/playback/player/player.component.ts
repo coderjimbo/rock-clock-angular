@@ -20,7 +20,7 @@ export class PlayerComponent implements OnInit {
   currentTrackIndex = 0;
   currentTrackPosition: number = 0;
   currentTrackDuration: number = 0;
-  showLyrics: boolean = true;
+  showLyrics: boolean = false;
   stopped: boolean = false;
   album: Album;
   tracks: Track[];
@@ -69,6 +69,7 @@ export class PlayerComponent implements OnInit {
       // Go to next track
       this.currentTrackIndex++;
     } else {
+      this.playbackService.setPlayback(null);
       this.goHome();
     }
   }
@@ -88,9 +89,10 @@ export class PlayerComponent implements OnInit {
     if(this.stopped) {
       this.stopped = false;
       this.playbackService.setPlayback(true);
-    } else {
-      this.showLyrics = !this.showLyrics;
-    }
+    } 
+    // else {
+    //   this.showLyrics = !this.showLyrics;
+    // } //TODO: Implement lyrics functionality
   }
 
   pressStop() {
@@ -104,6 +106,10 @@ export class PlayerComponent implements OnInit {
 
   getWidthPercentage(): number {
     return (Math.round(this.currentTrackPosition) / Math.round(this.currentTrackDuration)) * 100;
+  }
+
+  currentTrackHasLyrics(): boolean {
+    return false; //TODO: Implement lyrics functionality
   }
 
 }

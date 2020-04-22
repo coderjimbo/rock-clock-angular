@@ -3,19 +3,19 @@
     [
         {
             "title": "Pompeii",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Things We Lost in the Fire",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Bad Blood",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Overjoyed",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "These Streets",
@@ -31,11 +31,11 @@
         },
         {
             "title": "Oblivion",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Flaws",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Daniel in the Den",
@@ -43,11 +43,11 @@
         },
         {
             "title": "Laura Palmer",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Get Home",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Weight of Living, Pt. I",

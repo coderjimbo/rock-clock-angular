@@ -15,7 +15,7 @@
         },
         {
             "title": "Marooned",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "A Great Day for Freedom",
@@ -27,7 +27,7 @@
         },
         {
             "title": "Take It Back",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Coming Back to Life",
@@ -43,7 +43,7 @@
         },
         {
             "title": "High Hopes",
-            "hasVideo": false
+            "hasVideo": true
         }
     ]
 }

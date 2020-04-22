@@ -3,7 +3,7 @@
     [
         {
             "title": "Shout",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "The Working Hour",
@@ -11,23 +11,23 @@
         },
         {
             "title": "Everybody Wants to Rule the World",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Mothers Talk",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "I Believe",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Broken",
             "hasVideo": false
         },
         {
-            "title": "Head over Heels/Broken",
-            "hasVideo": false
+            "title": "Head over Heels",
+            "hasVideo": true
         },
         {
             "title": "Listen",

@@ -3,11 +3,11 @@
     [
         {
             "title": "The Reflex",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "New Moon on Monday",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "(I'm Looking For) Cracks in the Pavement",
@@ -23,7 +23,7 @@
         },
         {
             "title": "Union of the Snake",
-            "hasVideo": false
+            "hasVideo": true
         },
         {
             "title": "Shadows on Your Side",

@@ -3,8 +3,8 @@
         <div class="content">
             <app-video-player [album]="album" [track]="tracks[currentTrackIndex]" [trackIndex]="currentTrackIndex"
                 (videoPositionEvent)="updateCurrentTrackPosition($event)"></app-video-player>
-            <app-lyrics-display [class.hidden]="!showLyrics" [album]="album" [trackIndex]="currentTrackIndex"
-                [currentTrackPosition]="currentTrackPosition"></app-lyrics-display>
+            <!-- <app-lyrics-display [class.hidden]="!showLyrics" [album]="album" [trackIndex]="currentTrackIndex"
+                [currentTrackPosition]="currentTrackPosition"></app-lyrics-display> -->
         </div>
         <div class="content-background"
             [style.background-image]="'url(assets/albums/' + album.rootPath + '/artwork/artwork.png)'"></div>
@@ -20,12 +20,11 @@
         <h4 class="right">{{currentTrackDuration | minuteSeconds}} </h4>
         <div class="clear"></div>
         <div class="all-instructions">
-            <p class="instructions">Press <i class="fas fa-play green"></i> to <span *ngIf="showLyrics">hide</span><span
-                    *ngIf="!showLyrics">show</span> lyrics for this song</p>
+            <p class="instructions" *ngIf="stopped">Press <i class="fas fa-play green"></i> to resume playback</p>
             <p class="instructions">Press <i class="fas fa-stop red"></i> to <span *ngIf="!stopped">stop this
-                    song</span><span *ngIf="stopped">return to the album menu</span></p>
-            <p class="instructions">Press <i class="fas fa-arrow-left gold"></i> to go to the previous track</p>
-            <p class="instructions">Press <i class="fas fa-arrow-right gold"></i> to go to the next track</p>
+                    song</span><span *ngIf="stopped">go back to the album menu</span></p>
+            <p class="instructions" *ngIf="currentTrackIndex != 0">Press <i class="fas fa-arrow-left gold"></i> to go to the previous track</p>
+            <p class="instructions">Press <i class="fas fa-arrow-right gold"></i> to <span *ngIf="currentTrackIndex != tracks.length - 1">go to the next track</span> <span *ngIf="currentTrackIndex == tracks.length - 1">go back to the album menu</span></p>
         </div>
     </div>
 </div>

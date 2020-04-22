@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Track } from '../models/track';
 import { MediaPosition } from '../models/media-position';
 import { PlaybackService } from '../services/playback.service';
@@ -9,7 +9,7 @@ import { Album } from '../models/album';
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
-export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
+export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() track: Track;
   @Input() album: Album;
   @Input() trackIndex: number;
@@ -22,6 +22,12 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
   videoInterval: any;
 
   constructor(private playbackService: PlaybackService) { }
+
+  ngOnDestroy(): void {
+    this.video.pause();
+    this.video.currentTime = 0;
+    this.video.load();
+  }
 
   ngOnInit() {
     this.playbackService.playingEvent.subscribe(event => {
@@ -55,6 +61,9 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   controlVideo(nowPlaying: boolean) {
+    if(nowPlaying == null) {
+      this.video.src = null;
+    }
     if(nowPlaying) {
       this.video.play();
       this.mediaPosition = new MediaPosition();
