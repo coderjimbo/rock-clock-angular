@@ -8,6 +8,8 @@ import { PlaybackService } from 'src/app/core/services/playback.service';
 import Vibrant from 'node-vibrant'
 import { Palette } from 'node-vibrant/lib/color';
 import AlbumJson from '../../../assets/albums/albums.json';
+import { LEDPinValues, LEDPinBrightnessValues } from 'src/app/core/led-pin-values';
+import { GpioWebsocketsService } from 'src/app/core/services/gpio-websockets.service';
 
 @Component({
   selector: 'app-player',
@@ -27,7 +29,7 @@ export class PlayerComponent implements OnInit {
   resultPalette: Palette;
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private playbackService: PlaybackService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private playbackService: PlaybackService, private gpioService: GpioWebsocketsService) { }
 
   ngOnInit() {
     let albums = AlbumJson.albums as Album[];
@@ -44,7 +46,7 @@ export class PlayerComponent implements OnInit {
     Vibrant.from('assets/albums/' + this.album.rootPath + '/artwork/artwork.png').getPalette((err, palette) => {
       this.resultPalette = palette;
     });
-    
+    this.setButtonLEDs();
   }
 
   getMutedBackgroundColor(): string {
@@ -68,6 +70,8 @@ export class PlayerComponent implements OnInit {
     if(this.tracks.length - 1 > this.currentTrackIndex) {
       // Go to next track
       this.currentTrackIndex++;
+      this.stopped = false;
+      this.setButtonLEDs();
     } else {
       this.playbackService.setPlayback(null);
       this.goHome();
@@ -78,6 +82,7 @@ export class PlayerComponent implements OnInit {
     if(this.currentTrackIndex - 1 >= 0) {
       // Go to previous track
       this.currentTrackIndex--;
+      this.setButtonLEDs();
     }
   }
 
@@ -89,6 +94,7 @@ export class PlayerComponent implements OnInit {
     if(this.stopped) {
       this.stopped = false;
       this.playbackService.setPlayback(true);
+      this.setButtonLEDs();
     } 
     // else {
     //   this.showLyrics = !this.showLyrics;
@@ -101,6 +107,7 @@ export class PlayerComponent implements OnInit {
     } else {
       this.stopped = true;
       this.playbackService.setPlayback(false);
+      this.setButtonLEDs();
     }
   }
 
@@ -110,6 +117,22 @@ export class PlayerComponent implements OnInit {
 
   currentTrackHasLyrics(): boolean {
     return false; //TODO: Implement lyrics functionality
+  }
+
+  setButtonLEDs() {
+    this.gpioService.clearAllLeds(true);
+    let buttonPinsToLight: number[] = [];
+    if(!this.stopped) {
+      buttonPinsToLight.push(LEDPinValues.PLAY);
+    }
+
+    if(this.currentTrackIndex != 0) {
+      buttonPinsToLight.push(LEDPinValues.LEFT);
+    }
+    buttonPinsToLight.push(LEDPinValues.RIGHT);
+    buttonPinsToLight.push(LEDPinValues.STOP);
+
+    this.gpioService.setLedPinArrayValue(buttonPinsToLight, LEDPinBrightnessValues.ON_BUTTONS_MAX, true);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, OnDestroy, HostListener } from '@angular/core';
 import { Track } from '../models/track';
 import { MediaPosition } from '../models/media-position';
 import { PlaybackService } from '../services/playback.service';
@@ -20,13 +20,25 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges, O
   @ViewChild('videoPlayer', {static: false}) videoplayer: ElementRef;
   video: HTMLVideoElement;
   videoInterval: any;
+  paused: boolean = false;
 
   constructor(private playbackService: PlaybackService) { }
+
+  @HostListener('window:onVideoPlayerReady', ['$event.detail'])
+  onVideoReady(detail) {
+    console.log('video', detail);
+    if(this.track.hasVideo) {
+      this.playVideo();
+    } else {
+      clearInterval(this.videoInterval);
+    }
+  }
 
   ngOnDestroy(): void {
     this.video.pause();
     this.video.currentTime = 0;
     this.video.load();
+    clearInterval(this.videoInterval);
   }
 
   ngOnInit() {
@@ -65,23 +77,43 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges, O
       this.video.src = null;
     }
     if(nowPlaying) {
-      this.video.play();
-      this.mediaPosition = new MediaPosition();
-      this.videoInterval = setInterval(() => {
-        this.mediaPosition.duration = this.video.duration;
-        this.mediaPosition.currentPosition = this.video.currentTime;
-        this.videoPositionEvent.emit(this.mediaPosition);
-        if(this.video.currentTime >= (this.video.duration - 1.0)) {
-          this.videoPositionEvent.emit(null);
-          this.endVideo();
-        }
-      }, 500);
+      this.video.oncanplay = function(ev) {
+        var event = new CustomEvent('onVideoPlayerReady', {
+          detail: {
+              trackReady: ev.returnValue,
+              trackElement: ev.srcElement
+          }
+        });
+        window.dispatchEvent(event);
+      };
+      if(this.paused) {
+        this.paused = false;
+        clearInterval(this.videoInterval);
+        this.playVideo();
+      }
+
     } else {
       this.video.pause();
+      this.paused = true;
       clearInterval(this.videoInterval);
     }
   }
   
+
+  private playVideo() {
+    this.video.play();
+    this.mediaPosition = new MediaPosition();
+    clearInterval(this.videoInterval);
+    this.videoInterval = setInterval(() => {
+      this.mediaPosition.duration = this.video.duration;
+      this.mediaPosition.currentPosition = this.video.currentTime;
+      this.videoPositionEvent.emit(this.mediaPosition);
+      if (this.video.currentTime >= (this.video.duration - 1.0)) {
+        this.videoPositionEvent.emit(null);
+        this.endVideo();
+      }
+    }, 500);
+  }
 
   endVideo() {
     this.video.pause();

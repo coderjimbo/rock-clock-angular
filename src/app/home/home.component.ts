@@ -3,7 +3,7 @@ import { Album } from '../core/models/album';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GpioWebsocketsService } from '../core/services/gpio-websockets.service';
 import AlbumJson from '../../assets/albums/albums.json';
-import { LEDPinValues } from '../core/led-pin-values'
+import { LEDPinValues, LEDPinBrightnessValues } from '../core/led-pin-values'
 
 @Component({
   selector: 'app-home',
@@ -61,11 +61,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   setButtonLEDs() {
     let buttonPinsToLight: number[] = [];
     buttonPinsToLight.push(LEDPinValues.PLAY);
-    buttonPinsToLight.push(LEDPinValues.STOP);
+    //buttonPinsToLight.push(LEDPinValues.STOP);
     buttonPinsToLight.push(LEDPinValues.LEFT);
     buttonPinsToLight.push(LEDPinValues.RIGHT);
 
-    this.gpioService.setLedPinArrayValue(buttonPinsToLight, 255, true);
+    this.gpioService.setLedPinArrayValue(buttonPinsToLight, LEDPinBrightnessValues.ON_ALBUMS_MAX, true);
   }
 
   getSelectedAlbumIndex(): number {
@@ -132,11 +132,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   goToAlbum() {
     let album = this.albums[this.getSelectedAlbumIndex()];
+    this.gpioService.clearAllLeds(false);
+    this.gpioService.setLedPulsePinValueSpeed(this.getPinIndex(this.getSelectedAlbumIndex()), LEDPinBrightnessValues.ON_ALBUMS_MAX, 50);
     this.router.navigateByUrl("/play/" + this.getSelectedAlbumIndex(), {state: album});
+
   }
 
   goToWelcome() {
-    this.router.navigateByUrl("/welcome");
+    this.router.navigateByUrl("/");
   }
 
   getPinIndex(albumIndex: number): number {

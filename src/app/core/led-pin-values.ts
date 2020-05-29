@@ -16,3 +16,9 @@ export class LEDPinValues {
     public static LEFT = 27;
     public static RIGHT = 10;
 }
+
+export class LEDPinBrightnessValues {
+    public static ON_BUTTONS_MAX = 155;
+    public static ON_ALBUMS_MAX = 192;
+    public static OFF = 0;
+}
